@@ -1,7 +1,12 @@
 ## Advent of Code 2024
 
-This is my solutions to the advent of code 2024. Lets see if we can get past day 4.
 
-This code is not production quality, please be nice to me I am just a chill guy.
+My solutions to [Advent of Code 2024](https://adventofcode.com/) 🎄✨.
 
+This code is not production quality and rather verbose, so some solutions are brute forced. Too bad!
 
+## Running
+If for some reason you feel compelled to run my code, clone the repo and use the CLI commands I've included.
+```bash
+cargo run -- dayX --file inputs/XXXX.txt
+```
