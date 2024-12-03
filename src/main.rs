@@ -1,55 +1,39 @@
-use std::fs::File;
-use std::io::{self, BufRead};
+use advent_of_code_2024::*;
+use clap::{Arg, Command};
 
-fn main() -> io::Result<()> {
-    let path = "inputs/day1_part1.txt";
+fn main() {
+    // Example Command:
+    // cargo run -- day1 --file inputs/input.txt
+    let matches = Command::new("Day Runner")
+        .about("Run day-specific code with an optional file path")
+        .arg(
+            Arg::new("day")
+                .help("The day to run (e.g., day1, day2, day3)")
+                .required(true),
+        )
+        .arg(
+            Arg::new("file")
+                .short('f')
+                .long("file")
+                .help("Optional file path")
+                .value_name("FILE"), // Optional value with a name for clarity
+        )
+        .get_matches();
 
-    let file = File::open(&path)?;
+    let day = matches
+        .get_one::<String>("day")
+        .expect("Day argument is required");
 
-    let reader: io::BufReader<File> = io::BufReader::new(file);
+    let file_path = matches
+        .get_one::<String>("file")
+        .expect("Input is required");
 
-    let mut lists: (Vec<i32>, Vec<i32>) = reader
-        .lines() // Read lines from the file
-        .filter_map(Result::ok) // Ignore lines with errors
-        .filter_map(|line| {
-            let mut parts = line.split_whitespace();
-            let left = parts.next()?.parse::<i32>().ok()?;
-            let right = parts.next()?.parse::<i32>().ok()?;
-            Some((left, right))
-        })
-        .fold((Vec::new(), Vec::new()), |mut acc, (left, right)| {
-            acc.0.push(left);
-            acc.1.push(right);
-            acc
-        });
-
-    lists.0.sort();
-    lists.1.sort();
-
-    let mut total_distance = 0;
-
-    for i in 0..lists.0.len() {
-        let left_smallest = lists.0.get(i).unwrap();
-        let right_smallest = lists.1.get(i).unwrap();
-        let distance = left_smallest.abs() - right_smallest.abs();
-        total_distance += distance.abs();
-    }
-
-    println!("Total Distance is:  {:?}", total_distance);
-
-    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    // Part 2 
-    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    let similarity_score: i32 = lists
-        .0
-        .iter()
-        .map(|&number| {
-            let occurrences_in_right = lists.1.iter().filter(|&&x| x == number).count() as i32;
-            number * occurrences_in_right
-        })
-        .sum();
-
-    println!("Total similiarty score: {:?}", similarity_score);
-
-    Ok(())
+    let _result = match day.as_str() {
+        "day1" => day1::execute(file_path),
+        "day2" => day2::execute(file_path),
+        _ => {
+            eprintln!("Unsupported day: {}", day);
+            std::process::exit(1);
+        }
+    };
 }
