@@ -31,6 +31,7 @@ fn main() {
     let _result = match day.as_str() {
         "day1" => day1::execute(file_path),
         "day2" => day2::execute(file_path),
+        "day3" => day3::execute(file_path),
         _ => {
             eprintln!("Unsupported day: {}", day);
             std::process::exit(1);
