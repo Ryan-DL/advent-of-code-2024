@@ -38,7 +38,8 @@ pub fn execute(path: &str) -> io::Result<()> {
     let mut safe_reports_with_dampener = 0;
 
     for mut report in reports {
-        //initial ordering should be as follows, false for decending, true for asscending
+
+        // Very nasty way of checking if there are more increasing or decreasing numbers. I'm sure theres a better way of doing this.
         let (increases, decreases) = report.windows(2).fold((0, 0), |(inc, dec), pair| {
             if pair[1] > pair[0] {
                 (inc + 1, dec)
@@ -56,16 +57,16 @@ pub fn execute(path: &str) -> io::Result<()> {
         };
 
         let mut scary_indexs: Vec<usize> = Vec::new();
-
         for (index, current) in report.iter().enumerate() {
             if index == 0 {
                 continue;
             }
             let last = report[index - 1];
 
+
+            //IF the ordering is one way, but we see the opposite, we should be concerned about this. 
             match ordering {
                 Ordering::Accending => {
-                    println!("Last: {} Current: {}", last, current);
                     if last > *current {
                         scary_indexs.push(index - 1);
 
@@ -96,7 +97,7 @@ pub fn execute(path: &str) -> io::Result<()> {
             }
         }
 
-        //Try removing all the indexes we think there may be a problem with, and see if they are safe.
+        // Try removing all the indexes we think there may be a problem with, and see if they are safe.
         for index in scary_indexs.clone() {
             let mut cloned_report = report.clone();
             cloned_report.remove(index);
