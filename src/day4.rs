@@ -14,7 +14,6 @@ pub fn execute(path: &str) -> io::Result<()> {
 
     for (row_idx, row) in grid.iter().enumerate() {
         for (col_idx, &char) in row.iter().enumerate() {
-
             if visited.contains(&(row_idx.try_into().unwrap(), col_idx.try_into().unwrap())) {
                 continue;
             }
@@ -79,7 +78,7 @@ fn dfs(
     let rows = graph.len();
     let cols = graph.get(0).unwrap().len() as i32;
 
-    //Base case, if we've found XMAS 
+    //Base case, if we've found XMAS
     if is_xmas(accumulated_chars.to_vec()) {
         // This is a bit of a hack to let me know the total amount of christmas's found,
         // I use stdout to know the amount of lines printed so I'm not dealing with an accumulator in the code.
