@@ -24,13 +24,11 @@ pub fn execute(path: &str) -> io::Result<()> {
         let pattern = r"\(([^)]*)\)";
         let re = Regex::new(pattern).unwrap();
 
-        let mut matched_string = String::new();
-        if let Some(captures) = re.captures(m) {
-            // Extract the first capture group as a &str
-            matched_string = captures[1].to_string();
+        let matched_string = if let Some(captures) = re.captures(m) {
+            captures[1].to_string()
         } else {
-            continue; // No match found
-        }
+            continue; 
+        };
 
         let numbers: Vec<Option<i32>> = matched_string
             .split(",")

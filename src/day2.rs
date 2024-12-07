@@ -37,7 +37,7 @@ pub fn execute(path: &str) -> io::Result<()> {
     // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     let mut safe_reports_with_dampener = 0;
 
-    for mut report in reports {
+    for report in reports {
         // Very nasty way of checking if there are more increasing or decreasing numbers. I'm sure theres a better way of doing this.
         let (increases, decreases) = report.windows(2).fold((0, 0), |(inc, dec), pair| {
             if pair[1] > pair[0] {

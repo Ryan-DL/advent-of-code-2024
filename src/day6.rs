@@ -33,7 +33,7 @@ pub fn execute(path: &str) -> io::Result<()> {
     let mut seen_positions: Vec<(usize, usize)> = Vec::new();
     seen_positions.push(current_position);
 
-    while true {
+   loop {
         let movement = calculate_next_move(
             &grid,
             current_position,
@@ -71,7 +71,7 @@ pub fn execute(path: &str) -> io::Result<()> {
     let mut total_infinite_loops = 0;
 
     for (row_index, row) in grid.iter().enumerate() {
-        for (col_index, &ch) in row.iter().enumerate() {
+        for (col_index, &_ch) in row.iter().enumerate() {
             let mut copy_of_grid = grid.clone();
             copy_of_grid[row_index][col_index] = '#';
 
@@ -80,7 +80,7 @@ pub fn execute(path: &str) -> io::Result<()> {
 
             let mut total_moves = 0;
 
-            while true {
+            loop {
                 let movement = calculate_next_move(
                     &copy_of_grid,
                     current_position,

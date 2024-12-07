@@ -35,6 +35,7 @@ fn main() {
         "day4" => day4::execute(file_path),
         "day5" => day5::execute(file_path),
         "day6" => day6::execute(file_path),
+        "day7" => day7::execute(file_path),
         _ => {
             eprintln!("Unsupported day: {}", day);
             std::process::exit(1);
