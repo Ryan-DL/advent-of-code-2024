@@ -33,7 +33,7 @@ pub fn execute(path: &str) -> io::Result<()> {
     let mut seen_positions: Vec<(usize, usize)> = Vec::new();
     seen_positions.push(current_position);
 
-   loop {
+    loop {
         let movement = calculate_next_move(
             &grid,
             current_position,
