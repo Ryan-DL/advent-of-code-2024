@@ -46,18 +46,17 @@ pub fn execute(path: &str) -> io::Result<()> {
             }
         }
     }
-    
 
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     // Part 2
     //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     //Rolling down the block IDS as an i32, easier to work with.
     let mut rolldown = block_id as i32;
-    
+
     if part1 == false {
         rolldown = -1; // We're just gonna skip
     }
-    
+
     while rolldown >= 0 {
         let number_to_move: Vec<String> = finalized_string
             .iter()
